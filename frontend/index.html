@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placement Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">PT</span>
+    <div class="brand-text">
+      <h1>Placement Ledger</h1>
+      <p>Track every application from first email to signed offer</p>
+    </div>
+  </div>
+  <div class="server-status" id="serverStatus">
+    <span class="dot"></span> <span id="serverStatusText">Checking server…</span>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+  <button class="tab-btn" data-tab="jobs">All Jobs</button>
+  <button class="tab-btn" data-tab="add">Add Job</button>
+</nav>
+
+<main>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="panel active">
+    <div class="stamp" id="totalStamp">
+      <span class="stamp-number">0</span>
+      <span class="stamp-label">total opportunities</span>
+    </div>
+    <div class="card-grid" id="dashboardCards"></div>
+  </section>
+
+  <!-- ALL JOBS -->
+  <section id="jobs" class="panel">
+    <div class="toolbar">
+      <input type="text" id="searchCompany" placeholder="Search by company…">
+      <select id="filterStatus">
+        <option value="">All statuses</option>
+        <option>Not Applied</option>
+        <option>Applied</option>
+        <option>OA Scheduled</option>
+        <option>OA Completed</option>
+        <option>Technical Interview</option>
+        <option>HR Interview</option>
+        <option>Selected</option>
+        <option>Rejected</option>
+        <option>Offer Accepted</option>
+        <option>Offer Declined</option>
+      </select>
+      <button id="refreshBtn" class="btn-ghost">Refresh</button>
+    </div>
+
+    <div class="table-wrap">
+      <table id="jobsTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Company</th>
+            <th>Role</th>
+            <th>CTC</th>
+            <th>Deadline</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="jobsTableBody"></tbody>
+      </table>
+      <p id="emptyState" class="empty-state" hidden>No jobs match — try Add Job to log your first application.</p>
+    </div>
+  </section>
+
+  <!-- ADD JOB -->
+  <section id="add" class="panel">
+    <form id="addJobForm">
+      <div class="form-grid">
+        <label>Job ID <span class="req">*</span>
+          <input type="number" name="jobId" required>
+        </label>
+        <label>Company <span class="req">*</span>
+          <input type="text" name="companyName" required>
+        </label>
+        <label>Role <span class="req">*</span>
+          <input type="text" name="role" required>
+        </label>
+        <label>Package (CTC)
+          <input type="text" name="packageCTC" placeholder="e.g. 12 LPA">
+        </label>
+        <label>Location
+          <input type="text" name="location">
+        </label>
+        <label>Employment Type
+          <select name="employmentType">
+            <option>Full-Time</option>
+            <option>Internship</option>
+            <option>Internship + PPO</option>
+          </select>
+        </label>
+        <label>Minimum CGPA
+          <input type="number" step="0.01" name="minCGPA" value="0">
+        </label>
+        <label>Eligible Branches
+          <input type="text" name="eligibleBranches" placeholder="e.g. CSE, IT, ECE">
+        </label>
+        <label>Application Deadline
+          <input type="date" name="deadline">
+        </label>
+        <label>Source
+          <input type="text" name="source" placeholder="Email / LinkedIn / TPO">
+        </label>
+        <label>Status
+          <select name="status">
+            <option>Not Applied</option>
+            <option>Applied</option>
+            <option>OA Scheduled</option>
+            <option>OA Completed</option>
+            <option>Technical Interview</option>
+            <option>HR Interview</option>
+            <option>Selected</option>
+            <option>Rejected</option>
+            <option>Offer Accepted</option>
+            <option>Offer Declined</option>
+          </select>
+        </label>
+        <label class="full-width">Required Skills
+          <input type="text" name="requiredSkills" placeholder="e.g. DSA, DBMS, OOP">
+        </label>
+        <label class="full-width">Job Description
+          <textarea name="jobDescription" rows="3"></textarea>
+        </label>
+        <label class="full-width">Application Link
+          <input type="text" name="applicationLink">
+        </label>
+        <label class="full-width">Notes
+          <textarea name="notes" rows="2"></textarea>
+        </label>
+      </div>
+      <button type="submit" class="btn-primary">Add Job</button>
+      <p id="addFeedback" class="feedback"></p>
+    </form>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
